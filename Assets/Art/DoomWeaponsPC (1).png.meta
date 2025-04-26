@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -102,7 +102,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 366
-        width: 85
+        width: 83
         height: 152
       alignment: 9
       pivot: {x: 0.5, y: 0.5}
@@ -122,12 +122,12 @@ TextureImporter:
       name: DoomWeaponsPC (1)_1
       rect:
         serializedVersion: 2
-        x: 85
+        x: 325
         y: 366
         width: 120
         height: 152
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -144,12 +144,12 @@ TextureImporter:
       name: DoomWeaponsPC (1)_2
       rect:
         serializedVersion: 2
-        x: 205
+        x: 445
         y: 366
         width: 91
         height: 152
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -166,12 +166,12 @@ TextureImporter:
       name: DoomWeaponsPC (1)_3
       rect:
         serializedVersion: 2
-        x: 296
+        x: 536
         y: 366
         width: 116
         height: 152
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 1, w: 0}
       customData: 
       outline: []
@@ -188,12 +188,12 @@ TextureImporter:
       name: DoomWeaponsPC (1)_4
       rect:
         serializedVersion: 2
-        x: 412
-        y: 473
-        width: 46
-        height: 33
+        x: 83
+        y: 366
+        width: 80
+        height: 152
       alignment: 9
-      pivot: {x: 0.49758646, y: 0.5403618}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -210,12 +210,12 @@ TextureImporter:
       name: DoomWeaponsPC (1)_5
       rect:
         serializedVersion: 2
-        x: 459
-        y: 473
-        width: 57
-        height: 44
+        x: 163
+        y: 366
+        width: 80
+        height: 152
       alignment: 9
-      pivot: {x: 0.49229512, y: 0.47405034}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -224,6 +224,28 @@ TextureImporter:
       bones: []
       spriteID: b5cc7c47136ffad46af3ad21cfaaa262
       internalID: -115163188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DoomWeaponsPC (1)_6
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 366
+        width: 80
+        height: 152
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 110c8bc434ef41c48906c3f971823d34
+      internalID: 1809449105
       vertices: []
       indices: 
       edges: []
@@ -248,6 +270,7 @@ TextureImporter:
       DoomWeaponsPC (1)_3: 721567636
       DoomWeaponsPC (1)_4: -1005319328
       DoomWeaponsPC (1)_5: -115163188
+      DoomWeaponsPC (1)_6: 1809449105
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
