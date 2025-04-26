@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
@@ -8,6 +9,12 @@ public class UIController : MonoBehaviour
 
     [SerializeField]
     TextMeshProUGUI goalText;
+
+    [SerializeField]
+    TextMeshProUGUI scoreText;
+
+    [SerializeField]
+    Image damageImage;
 
     PlayerController player;
 
@@ -21,6 +28,8 @@ public class UIController : MonoBehaviour
     void Update()
     {
         equationText.SetText(player.HitResultsBuilder.ToString());
-        goalText.SetText(player.GoalManager.NextGoal().ToString());
+        goalText.SetText($"Create: {player.GoalManager.NextGoal().ToString()}");
+        scoreText.SetText($"Score: {player.GoalManager.GetScore().ToString()}");
+        damageImage.color = new Color(damageImage.color.r, damageImage.color.g, damageImage.color.b, 1 - (player.GetHealth() / player.GetMaxHealth()));
     }
 }

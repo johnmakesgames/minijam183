@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -31,6 +32,9 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     float Health;
+
+    [SerializeField]
+    float MaxHealth;
 
     public HitResultsBuilder HitResultsBuilder;
     public GoalManager GoalManager;
@@ -84,7 +88,7 @@ public class PlayerController : MonoBehaviour
         movementUpdate.Normalize();
         movementUpdate *= (dt * movementScalar);
 
-        rb.MovePosition(this.transform.position + movementUpdate);
+        rb.AddForce(movementUpdate);
         UpdateHeadBob(Time.deltaTime, movementUpdate.magnitude);
     }
 
@@ -93,7 +97,7 @@ public class PlayerController : MonoBehaviour
         Vector3 updatedCameraPos = this.transform.position;
         updatedCameraPos.y = (Mathf.Sin(sinTime) * headBobScale) + headBobOffset + this.transform.position.y;
         playerCamera.transform.position = updatedCameraPos;
-        sinTime += dt * headBobSpeed * movementSpeed;
+        sinTime += dt * headBobSpeed * (movementSpeed/100);
     }
 
     void UpdateRotation(float dt)
@@ -123,45 +127,89 @@ public class PlayerController : MonoBehaviour
                 handsAnimator.SetTrigger("Shoot");
 
                 // Do shooting
-                Ray ray = new Ray();
-                ray.origin = this.transform.position + this.transform.forward;
-                ray.direction = this.transform.forward;
-
-                RaycastHit hitResults = new RaycastHit();
-                float distance = 500;
-                if (Physics.Raycast(ray, out hitResults))
+                List<RaycastHit> hits = FireMultipleRays(this.transform.position + this.transform.forward, this.transform.forward, 80, 3, out bool result);
+                if (result)
                 {
-                    Debug.DrawRay(ray.origin, ray.direction * hitResults.distance, Color.green, 3);
-
-                    if (hitResults.transform.gameObject.GetComponent<EnemyController>())
+                    bool sorted = true;
+                    do
                     {
-                        Debug.Log("Hit Enemy");
-
-                        EnemyNumeric result = hitResults.transform.gameObject.GetComponent<EnemyController>().DoDamage(1);
-                        if (result != EnemyNumeric.EnumCount)
+                        sorted = true;
+                        for (int i = 1; i < hits.Count; i++)
                         {
-                            // Do builder here
-                            Debug.Log("Killed Enemy");
-                            if (result != EnemyNumeric.Equals)
+                            if (hits[i - 1].distance > hits[i].distance)
                             {
-                                HitResultsBuilder.Symbol(result);
-                            }
-                            else
-                            {
-                                GoalManager.CheckGoal(HitResultsBuilder.Result());
+                                RaycastHit hit1 = hits[i - 1];
+                                hits[i - 1] = hits[i];
+                                hits[i] = hit1;
+                                sorted = false;
                             }
                         }
                     }
-                }
-                else
-                {
-                    Debug.DrawRay(ray.origin, ray.direction * distance, Color.red, 3);
-                }
+                    while (!sorted);
 
+                    foreach (var hit in hits)
+                    {
+                        if (hit.transform.gameObject.GetComponent<EnemyController>())
+                        {
+                            Debug.Log("Hit Enemy");
+
+                            EnemyNumeric numeric = hit.transform.gameObject.GetComponent<EnemyController>().DoDamage(1);
+                            if (numeric != EnemyNumeric.EnumCount)
+                            {
+                                // Do builder here
+                                Debug.Log("Killed Enemy");
+                                if (numeric != EnemyNumeric.Equals)
+                                {
+                                    HitResultsBuilder.Symbol(numeric);
+                                }
+                                else
+                                {
+                                    GoalManager.CheckGoal(HitResultsBuilder.Result());
+                                }
+                            }
+
+                            break;
+                        }
+                    }
+                }
 
                 timeSinceShot = 0;
             }
         }
+    }
+
+    List<RaycastHit> FireMultipleRays(Vector3 centralPosition, Vector3 direciton, int verticalRayCount, int horizontalRayCount, out bool result)
+    {
+        result = false;
+        List<RaycastHit> hits = new List<RaycastHit>();
+        int halfHorizontalRayCount = horizontalRayCount / 2;
+        for (int j = -halfHorizontalRayCount; j < horizontalRayCount - halfHorizontalRayCount; j++)
+        {
+            int halfVerticalRayCount = verticalRayCount / 2;
+            for (int i = -halfVerticalRayCount; i < verticalRayCount - halfVerticalRayCount; i++)
+            {
+                Vector3 origin = centralPosition;
+                origin.y += (float)i / 5;
+                origin.x += (float)j / 10;
+
+                Ray ray = new Ray();
+                ray.origin = origin;
+                ray.direction = direciton;
+                RaycastHit hitResult = new RaycastHit();
+
+                bool thisOneHit = false;
+                if (Physics.Raycast(ray, out hitResult))
+                {
+                    hits.Add(hitResult);
+                    result = true;
+                    thisOneHit = true;
+                }
+
+                Debug.DrawRay(origin, direciton * 1000, (thisOneHit) ? Color.green : Color.red, 5);
+            }
+        }
+
+        return hits;
     }
 
     public void DoDamage(float damage)
@@ -171,5 +219,15 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("DEAD");
         }
+    }
+
+    public float GetHealth()
+    {
+        return Health;
+    }
+
+    public float GetMaxHealth()
+    {
+        return MaxHealth;
     }
 }

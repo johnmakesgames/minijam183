@@ -127,6 +127,10 @@ public class HitResultsBuilder
         do
         {
             ready = true;
+            if (queue.Count == 0)
+            {
+                break;
+            }
 
             // Pop items off of the front until we are starting with a number.
             if (queue.Peek() >= EnemyNumeric.Add)
@@ -150,7 +154,7 @@ public class HitResultsBuilder
                 currentNum += nextNum;
                 break;
             case EnemyNumeric.Subtract:
-                currentNum += nextNum;
+                currentNum -= nextNum;
                 break;
             case EnemyNumeric.Multiply:
                 if (nextNum != 0)

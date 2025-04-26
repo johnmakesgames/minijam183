@@ -35,13 +35,25 @@ public class EnemyController : MonoBehaviour
         if (distToPlayer <= distanceToGoToPlayer)
         {
             Vector3 dirToPlayer = (player.transform.position - this.transform.position).normalized;
-            dirToPlayer.y = 0;
-            rb.MovePosition(this.transform.position + dirToPlayer * movementSpeed * Time.deltaTime);
 
-            if (Health <= 0)
+            Ray ray = new Ray();
+            ray.origin = this.transform.position + dirToPlayer;
+            ray.direction = dirToPlayer;
+            Debug.DrawRay(ray.origin, ray.direction * 1000, Color.blue, Time.deltaTime);
+
+            if (Physics.Raycast(ray, out RaycastHit hitInfo))
             {
-                Destroy(this.gameObject);
+                if (hitInfo.transform.gameObject.CompareTag("Player"))
+                {
+                    dirToPlayer.y = 0;
+                    rb.AddForce(dirToPlayer * movementSpeed * Time.deltaTime);
+                }
             }
+        }
+
+        if (Health <= 0)
+        {
+            Destroy(this.gameObject);
         }
     }
 
@@ -62,13 +74,6 @@ public class EnemyController : MonoBehaviour
     public EnemyNumeric DoDamage(float damage)
     {
         Health -= damage;
-        if (Health <= 0)
-        {
-            return myValue;
-        }
-        else
-        {
-            return EnemyNumeric.EnumCount;
-        }
+        return myValue;
     }
 }
