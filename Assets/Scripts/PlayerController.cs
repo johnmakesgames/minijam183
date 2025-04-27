@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -40,8 +41,10 @@ public class PlayerController : MonoBehaviour
     public GoalManager GoalManager;
 
     private List<IGuns> Guns;
-
     int currentGun;
+
+    [SerializeField]
+    AudioSource gunShootSound;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -53,9 +56,10 @@ public class PlayerController : MonoBehaviour
         GoalManager = new GoalManager();
 
         Guns = new List<IGuns>();
-        Guns.Add(new Shotgun(handsAnimator, HitResultsBuilder, GoalManager));
-        Guns.Add(new SuperShotgun(handsAnimator, HitResultsBuilder, GoalManager));
-        Guns.Add(new MiniGun(handsAnimator, HitResultsBuilder, GoalManager));
+        Guns.Add(new Shotgun(handsAnimator, HitResultsBuilder, GoalManager, gunShootSound));
+        Guns.Add(new SuperShotgun(handsAnimator, HitResultsBuilder, GoalManager, gunShootSound));
+        Guns.Add(new MiniGun(handsAnimator, HitResultsBuilder, GoalManager, gunShootSound));
+        Guns.Add(new BFG(handsAnimator, HitResultsBuilder, GoalManager, gunShootSound));
     }
 
     // Update is called once per frame
@@ -122,6 +126,12 @@ public class PlayerController : MonoBehaviour
 
     void UpdateShooting(float dt)
     {
+        foreach (var gun in Guns)
+        {
+            gun.Update(dt);
+        }
+
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             currentGun++;
@@ -140,9 +150,9 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        handsAnimator.SetInteger("GunChoice", currentGun);
-        Guns[currentGun].Update(dt);
+        handsAnimator.SetInteger("GunChoice", Guns[currentGun].GunID);
 
+        
         // Input
         if (Input.GetMouseButton(0))
         {
@@ -153,9 +163,10 @@ public class PlayerController : MonoBehaviour
     public void DoDamage(float damage)
     {
         Health -= damage;
-        if (Health <= 0)
+        if (Health < 0)
         {
             Debug.Log("DEAD");
+            SceneManager.LoadScene("MainMenu");
         }
     }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,24 +34,31 @@ public class HitResultsBuilder
 
     public void HandleNumber(int num)
     {
-        int tempNum = (firstPass) ? currentNum : nextNum;
-        if (tempNum == 0)
+        try
         {
-            tempNum = num;
-        }
-        else
-        {
-            string numStr = tempNum.ToString() + num.ToString();
-            tempNum = int.Parse(numStr);
-        }
+            int tempNum = (firstPass) ? currentNum : nextNum;
+            if (tempNum == 0)
+            {
+                tempNum = num;
+            }
+            else
+            {
+                string numStr = tempNum.ToString() + num.ToString();
+                tempNum = int.Parse(numStr);
+            }
 
-        if (firstPass)
-        {
-            currentNum = tempNum;
+            if (firstPass)
+            {
+                currentNum = tempNum;
+            }
+            else
+            {
+                nextNum = tempNum;
+            }
         }
-        else
+        catch (Exception e)
         {
-            nextNum = tempNum;
+            Debug.LogError($"Exception thrown: {e.ToString()}");
         }
     }
 
