@@ -4,19 +4,21 @@ using UnityEngine;
 public class IGuns
 {
     public int GunID;
-    public virtual void Update(float dt){;}
+    public virtual void Update(float dt, Vector3 position, Vector3 forward) {;}
     public virtual void ShootGun(Vector3 position, Vector3 forward) {;}
     protected Animator handsAnimator { get; set; }
     protected HitResultsBuilder hitResultsBuilder { get; set; }
     protected GoalManager goalManager { get; set; }
     protected AudioSource gunShootAudioSource;
+    protected AudioSource bfgAudiOSource;
 
-    public IGuns(Animator animator, HitResultsBuilder resultsBuilder, GoalManager goals, AudioSource shootAudioSource)
+    public IGuns(Animator animator, HitResultsBuilder resultsBuilder, GoalManager goals, AudioSource shootAudioSource, AudioSource bfgAudioSource)
     {
         handsAnimator = animator;
         hitResultsBuilder = resultsBuilder;
         goalManager = goals;
         gunShootAudioSource = shootAudioSource;
+        bfgAudiOSource = bfgAudioSource;
     }
 
     protected List<RaycastHit> FireMultipleRays(Vector3 centralPosition, Vector3 direciton, int verticalRayCount, int horizontalRayCount, out bool result)
@@ -59,12 +61,12 @@ public class Shotgun : IGuns
     float timeSinceShot = 0;
     const float minimumCooldown = 0.4f;
 
-    public Shotgun(Animator animator, HitResultsBuilder resultsBuilder, GoalManager goals, AudioSource shootAudioSource) : base(animator, resultsBuilder, goals, shootAudioSource)
+    public Shotgun(Animator animator, HitResultsBuilder resultsBuilder, GoalManager goals, AudioSource shootAudioSource, AudioSource bfgAudioSource) : base(animator, resultsBuilder, goals, shootAudioSource, bfgAudioSource)
     {
         GunID = 0;
     }
 
-    public override void Update(float dt)
+    public override void Update(float dt, Vector3 position, Vector3 forward)
     {
         timeSinceShot += dt;
     }
@@ -138,12 +140,12 @@ public class SuperShotgun : IGuns
     float timeSinceShot = 0;
     const float minimumCooldown = 0.5f;
 
-    public SuperShotgun(Animator animator, HitResultsBuilder resultsBuilder, GoalManager goals, AudioSource shootAudioSource) : base(animator, resultsBuilder, goals, shootAudioSource)
+    public SuperShotgun(Animator animator, HitResultsBuilder resultsBuilder, GoalManager goals, AudioSource shootAudioSource, AudioSource bfgAudioSource) : base(animator, resultsBuilder, goals, shootAudioSource, bfgAudioSource)
     {
         GunID = 1;
     }
 
-    public override void Update(float dt)
+    public override void Update(float dt, Vector3 position, Vector3 forward)
     {
         timeSinceShot += dt;
     }
@@ -158,7 +160,7 @@ public class SuperShotgun : IGuns
                 // Play Anim
                 handsAnimator.SetTrigger("Shoot");
                 gunShootAudioSource.Play();
-                gunShootAudioSource.PlayDelayed(0.01f);
+                gunShootAudioSource.PlayDelayed(0.05f);
 
                 // Do shooting
                 List<RaycastHit> hits = FireMultipleRays(position + forward, forward, 1, 50, out bool result);
@@ -199,12 +201,12 @@ public class MiniGun : IGuns
     float timeSinceShot = 0;
     const float minimumCooldown = 0.1f;
 
-    public MiniGun(Animator animator, HitResultsBuilder resultsBuilder, GoalManager goals, AudioSource shootAudioSource) : base(animator, resultsBuilder, goals, shootAudioSource)
+    public MiniGun(Animator animator, HitResultsBuilder resultsBuilder, GoalManager goals, AudioSource shootAudioSource, AudioSource bfgAudioSource) : base(animator, resultsBuilder, goals, shootAudioSource, bfgAudioSource)
     {
         GunID = 2;
     }
 
-    public override void Update(float dt)
+    public override void Update(float dt, Vector3 position, Vector3 forward)
     {
         timeSinceShot += dt;
     }
@@ -276,29 +278,21 @@ public class BFG : IGuns
 {
     float timeSinceShot = 0;
     const float minimumCooldown = 10.0f;
+    bool pendingShoot = false;
 
-    public BFG(Animator animator, HitResultsBuilder resultsBuilder, GoalManager goals, AudioSource shootAudioSource) : base(animator, resultsBuilder, goals, shootAudioSource)
+    public BFG(Animator animator, HitResultsBuilder resultsBuilder, GoalManager goals, AudioSource shootAudioSource, AudioSource bfgAudioSource) : base(animator, resultsBuilder, goals, shootAudioSource, bfgAudioSource)
     {
         GunID = 3;
     }
 
-    public override void Update(float dt)
+    public override void Update(float dt, Vector3 position, Vector3 forward)
     {
         timeSinceShot += dt;
-    }
 
-    public override void ShootGun(Vector3 position, Vector3 forward)
-    {
-        if (timeSinceShot > minimumCooldown)
+        if (pendingShoot)
         {
-
-            // Not currently shooting
-            if (handsAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "BFGShoot")
+            if (timeSinceShot >= 0.42f)
             {
-                // Play Anim
-                handsAnimator.SetTrigger("Shoot");
-                gunShootAudioSource.PlayDelayed(0.4f);
-
                 // Do shooting
                 List<RaycastHit> hits = FireMultipleRays(position + forward, forward, 1, 300, out bool result);
                 if (result)
@@ -327,6 +321,22 @@ public class BFG : IGuns
                     }
                 }
 
+                pendingShoot = false;
+            }
+        }
+    }
+
+    public override void ShootGun(Vector3 position, Vector3 forward)
+    {
+        if (timeSinceShot > minimumCooldown)
+        {
+            // Not currently shooting
+            if (handsAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "BFGShoot")
+            {
+                // Play Anim
+                handsAnimator.SetTrigger("Shoot");
+                bfgAudiOSource.PlayDelayed(0.4f);
+                pendingShoot = true;
                 timeSinceShot = 0;
             }
         }

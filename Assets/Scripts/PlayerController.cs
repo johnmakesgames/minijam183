@@ -46,6 +46,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     AudioSource gunShootSound;
 
+    [SerializeField]
+    AudioSource bfgShootSound;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -56,10 +59,10 @@ public class PlayerController : MonoBehaviour
         GoalManager = new GoalManager();
 
         Guns = new List<IGuns>();
-        Guns.Add(new Shotgun(handsAnimator, HitResultsBuilder, GoalManager, gunShootSound));
-        Guns.Add(new SuperShotgun(handsAnimator, HitResultsBuilder, GoalManager, gunShootSound));
-        Guns.Add(new MiniGun(handsAnimator, HitResultsBuilder, GoalManager, gunShootSound));
-        Guns.Add(new BFG(handsAnimator, HitResultsBuilder, GoalManager, gunShootSound));
+        Guns.Add(new Shotgun(handsAnimator, HitResultsBuilder, GoalManager, gunShootSound, bfgShootSound));
+        Guns.Add(new SuperShotgun(handsAnimator, HitResultsBuilder, GoalManager, gunShootSound, bfgShootSound));
+        Guns.Add(new MiniGun(handsAnimator, HitResultsBuilder, GoalManager, gunShootSound, bfgShootSound));
+        Guns.Add(new BFG(handsAnimator, HitResultsBuilder, GoalManager, gunShootSound, bfgShootSound));
     }
 
     // Update is called once per frame
@@ -128,7 +131,7 @@ public class PlayerController : MonoBehaviour
     {
         foreach (var gun in Guns)
         {
-            gun.Update(dt);
+            gun.Update(dt, this.transform.position, this.transform.forward);
         }
 
 
