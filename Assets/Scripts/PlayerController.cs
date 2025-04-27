@@ -39,6 +39,10 @@ public class PlayerController : MonoBehaviour
     public HitResultsBuilder HitResultsBuilder;
     public GoalManager GoalManager;
 
+    private List<IGuns> Guns;
+
+    int currentGun;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -47,6 +51,11 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         HitResultsBuilder = new HitResultsBuilder();
         GoalManager = new GoalManager();
+
+        Guns = new List<IGuns>();
+        Guns.Add(new Shotgun(handsAnimator, HitResultsBuilder, GoalManager));
+        Guns.Add(new SuperShotgun(handsAnimator, HitResultsBuilder, GoalManager));
+        Guns.Add(new MiniGun(handsAnimator, HitResultsBuilder, GoalManager));
     }
 
     // Update is called once per frame
@@ -111,105 +120,34 @@ public class PlayerController : MonoBehaviour
         this.transform.Rotate(rotationChange, cameraRotation * dt * Mathf.Abs(mouseDif));
     }
 
-    float timeSinceShot = 0;
-    const float minimumCooldown = 0.2f;
     void UpdateShooting(float dt)
     {
-        timeSinceShot += dt;
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            currentGun++;
+            if (currentGun > Guns.Count - 1)
+            {
+                currentGun = 0;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            currentGun--;
+            if (currentGun < 0)
+            {
+                currentGun = Guns.Count - 1;
+            }
+        }
+
+        handsAnimator.SetInteger("GunChoice", currentGun);
+        Guns[currentGun].Update(dt);
 
         // Input
-        if (timeSinceShot > minimumCooldown && Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
-            // Not currently shooting
-            if (handsAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "PlayerShoot")
-            {
-                // Play Anim
-                handsAnimator.SetTrigger("Shoot");
-
-                // Do shooting
-                List<RaycastHit> hits = FireMultipleRays(this.transform.position + this.transform.forward, this.transform.forward, 80, 3, out bool result);
-                if (result)
-                {
-                    bool sorted = true;
-                    do
-                    {
-                        sorted = true;
-                        for (int i = 1; i < hits.Count; i++)
-                        {
-                            if (hits[i - 1].distance > hits[i].distance)
-                            {
-                                RaycastHit hit1 = hits[i - 1];
-                                hits[i - 1] = hits[i];
-                                hits[i] = hit1;
-                                sorted = false;
-                            }
-                        }
-                    }
-                    while (!sorted);
-
-                    foreach (var hit in hits)
-                    {
-                        if (hit.transform.gameObject.GetComponent<EnemyController>())
-                        {
-                            Debug.Log("Hit Enemy");
-
-                            EnemyNumeric numeric = hit.transform.gameObject.GetComponent<EnemyController>().DoDamage(1);
-                            if (numeric != EnemyNumeric.EnumCount)
-                            {
-                                // Do builder here
-                                Debug.Log("Killed Enemy");
-                                if (numeric != EnemyNumeric.Equals)
-                                {
-                                    HitResultsBuilder.Symbol(numeric);
-                                }
-                                else
-                                {
-                                    GoalManager.CheckGoal(HitResultsBuilder.Result());
-                                }
-                            }
-
-                            break;
-                        }
-                    }
-                }
-
-                timeSinceShot = 0;
-            }
+            Guns[currentGun].ShootGun(this.transform.position, this.transform.forward);
         }
-    }
-
-    List<RaycastHit> FireMultipleRays(Vector3 centralPosition, Vector3 direciton, int verticalRayCount, int horizontalRayCount, out bool result)
-    {
-        result = false;
-        List<RaycastHit> hits = new List<RaycastHit>();
-        int halfHorizontalRayCount = horizontalRayCount / 2;
-        for (int j = -halfHorizontalRayCount; j < horizontalRayCount - halfHorizontalRayCount; j++)
-        {
-            int halfVerticalRayCount = verticalRayCount / 2;
-            for (int i = -halfVerticalRayCount; i < verticalRayCount - halfVerticalRayCount; i++)
-            {
-                Vector3 origin = centralPosition;
-                origin.y += (float)i / 5;
-                origin.x += (float)j / 10;
-
-                Ray ray = new Ray();
-                ray.origin = origin;
-                ray.direction = direciton;
-                RaycastHit hitResult = new RaycastHit();
-
-                bool thisOneHit = false;
-                if (Physics.Raycast(ray, out hitResult))
-                {
-                    hits.Add(hitResult);
-                    result = true;
-                    thisOneHit = true;
-                }
-
-                Debug.DrawRay(origin, direciton * 1000, (thisOneHit) ? Color.green : Color.red, 5);
-            }
-        }
-
-        return hits;
     }
 
     public void DoDamage(float damage)

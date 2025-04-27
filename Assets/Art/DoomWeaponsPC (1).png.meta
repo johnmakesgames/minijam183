@@ -101,7 +101,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 366
+        y: 486
         width: 83
         height: 152
       alignment: 9
@@ -122,8 +122,8 @@ TextureImporter:
       name: DoomWeaponsPC (1)_1
       rect:
         serializedVersion: 2
-        x: 325
-        y: 366
+        x: 323
+        y: 486
         width: 120
         height: 152
       alignment: 0
@@ -144,8 +144,8 @@ TextureImporter:
       name: DoomWeaponsPC (1)_2
       rect:
         serializedVersion: 2
-        x: 445
-        y: 366
+        x: 443
+        y: 486
         width: 91
         height: 152
       alignment: 0
@@ -166,8 +166,8 @@ TextureImporter:
       name: DoomWeaponsPC (1)_3
       rect:
         serializedVersion: 2
-        x: 536
-        y: 366
+        x: 534
+        y: 486
         width: 116
         height: 152
       alignment: 0
@@ -189,7 +189,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 83
-        y: 366
+        y: 486
         width: 80
         height: 152
       alignment: 9
@@ -211,7 +211,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 163
-        y: 366
+        y: 486
         width: 80
         height: 152
       alignment: 9
@@ -233,7 +233,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 243
-        y: 366
+        y: 486
         width: 80
         height: 152
       alignment: 9
@@ -246,6 +246,314 @@ TextureImporter:
       bones: []
       spriteID: 110c8bc434ef41c48906c3f971823d34
       internalID: 1809449105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DoomWeaponsPC (1)_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 266
+        width: 60
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e021727616798e429e6d51a70b6be8c
+      internalID: 1358377590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DoomWeaponsPC (1)_8
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 266
+        width: 124
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2bc777f91fdac849ac13e5a8291db83
+      internalID: 1546657539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DoomWeaponsPC (1)_9
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 266
+        width: 60
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e19c13eda7f69d4181e8ab5666a8ca1
+      internalID: 1696834859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DoomWeaponsPC (1)_10
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 266
+        width: 72
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7df5d0e928c74b440a39a9e5715ea400
+      internalID: -747819802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DoomWeaponsPC (1)_11
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 266
+        width: 86
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3cb3fa061941f846bac5fb09d44ce85
+      internalID: -191898781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DoomWeaponsPC (1)_12
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 266
+        width: 86
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a06b518a82facc41b44d05d9017bf78
+      internalID: 1050432616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DoomWeaponsPC (1)_13
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 266
+        width: 201
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c08c1c507dd1be94aa3f7c47b0d8fe76
+      internalID: 318521898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DoomWeaponsPC (1)_14
+      rect:
+        serializedVersion: 2
+        x: 689
+        y: 266
+        width: 92
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d076bb8ce141364287ee35f2dd9f934
+      internalID: -363062854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DoomWeaponsPC (1)_15
+      rect:
+        serializedVersion: 2
+        x: 781
+        y: 266
+        width: 84
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4acce5e8f5c05f840a124f0e55c91427
+      internalID: 482646326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DoomWeaponsPC (1)_16
+      rect:
+        serializedVersion: 2
+        x: 865
+        y: 266
+        width: 79
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 158bc344195e7414bb828657c93cd22e
+      internalID: 1975655911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DoomWeaponsPC (1)_17
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 934
+        width: 114
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0bcd51258bbb8a041b2918b48620886c
+      internalID: 1364303021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DoomWeaponsPC (1)_18
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 934
+        width: 114
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d2a2bfd2bb72de43aadfecf74f5a78f
+      internalID: -2106768770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DoomWeaponsPC (1)_19
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 934
+        width: 114
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c31469accb17c1438f7384e17fff9fe
+      internalID: -147286156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DoomWeaponsPC (1)_20
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 934
+        width: 114
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a5433959bbb8e8479f271b5f182c5f1
+      internalID: -1341190224
       vertices: []
       indices: 
       edges: []
@@ -266,11 +574,25 @@ TextureImporter:
     nameFileIdTable:
       DoomWeaponsPC (1)_0: 1776002948
       DoomWeaponsPC (1)_1: 52367103
+      DoomWeaponsPC (1)_10: -747819802
+      DoomWeaponsPC (1)_11: -191898781
+      DoomWeaponsPC (1)_12: 1050432616
+      DoomWeaponsPC (1)_13: 318521898
+      DoomWeaponsPC (1)_14: -363062854
+      DoomWeaponsPC (1)_15: 482646326
+      DoomWeaponsPC (1)_16: 1975655911
+      DoomWeaponsPC (1)_17: 1364303021
+      DoomWeaponsPC (1)_18: -2106768770
+      DoomWeaponsPC (1)_19: -147286156
       DoomWeaponsPC (1)_2: -1970273526
+      DoomWeaponsPC (1)_20: -1341190224
       DoomWeaponsPC (1)_3: 721567636
       DoomWeaponsPC (1)_4: -1005319328
       DoomWeaponsPC (1)_5: -115163188
       DoomWeaponsPC (1)_6: 1809449105
+      DoomWeaponsPC (1)_7: 1358377590
+      DoomWeaponsPC (1)_8: 1546657539
+      DoomWeaponsPC (1)_9: 1696834859
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
