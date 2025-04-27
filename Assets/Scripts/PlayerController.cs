@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    //CharacterController characterController;
     Rigidbody rb;
 
     [SerializeField]

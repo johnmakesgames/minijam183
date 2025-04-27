@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GoalManager
 {
     float currentScore = 0;
     List<int> goals;
+    int GoalToMoveLevel = -1;
 
     public GoalManager()
     {
@@ -14,6 +16,36 @@ public class GoalManager
         goals.Add(Random.Range(0, 10) + 1);
         goals.Add(Random.Range(5, 15) + 1);
         goals.Add(Random.Range(10, 20) + 1);
+
+        if (SceneManager.GetActiveScene().name.ToLower() == "lvl1")
+        {
+            GoalToMoveLevel = 50;
+        }
+
+        if (SceneManager.GetActiveScene().name.ToLower() == "lvl2")
+        {
+            GoalToMoveLevel = 100;
+        }
+
+        if (SceneManager.GetActiveScene().name.ToLower() == "lvl3")
+        {
+            GoalToMoveLevel = 150;
+        }
+
+        if (SceneManager.GetActiveScene().name.ToLower() == "lvl4")
+        {
+            GoalToMoveLevel = 200;
+        }
+
+        if (SceneManager.GetActiveScene().name.ToLower() == "lvl5")
+        {
+            GoalToMoveLevel = -1;
+        }
+    }
+
+    public int ToNextLevel()
+    {
+        return GoalToMoveLevel;
     }
 
     public int NextGoal()
